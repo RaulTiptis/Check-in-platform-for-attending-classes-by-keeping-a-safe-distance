@@ -1,0 +1,88 @@
+package ro.euvt.tp.classroomDistancing.model;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+public class Classroom implements Serializable {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Integer id;
+  private String name;
+  private String location;
+  private int capacity;
+  @OneToOne
+  private User teacher;
+  @OneToMany
+  private List<User> students;
+  @OneToOne
+  private Subject subject;
+
+  public Classroom(){
+
+  }
+
+  public Classroom(Integer id,String name, String location, int capacity, User teacher, List<User> students, Subject subject) {
+    this.id = id;
+    this.name = name;
+    this.location = location;
+    this.capacity = capacity;
+    this.subject = subject;
+    this.teacher = teacher;
+    this.students = students;
+  }
+
+  public User getTeacher(){
+    return teacher;
+  }
+
+  public void setTeacher(User teacher){
+    this.teacher = teacher;
+  }
+
+  public List<User> getStudents(){
+    return students;
+  }
+
+  public void setStudents(List<User> students){
+    this.students = students;
+  }
+
+  public Integer getId(){
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public int getCapacity() {
+    return capacity;
+  }
+
+  public void setCapacity(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public Subject getSubject(){
+    return subject;
+  }
+
+  public void setSubject(Subject subject){
+    this.subject = subject;
+  }
+}
