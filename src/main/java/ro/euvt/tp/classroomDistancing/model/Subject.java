@@ -1,5 +1,7 @@
 package ro.euvt.tp.classroomDistancing.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +14,7 @@ public class Subject implements Serializable {
   private Integer id;
   private String name;
   @OneToMany
+  @Nullable
   private List<Classroom> classrooms;
 
   public Integer getId() {

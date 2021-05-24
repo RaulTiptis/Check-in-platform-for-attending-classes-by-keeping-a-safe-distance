@@ -1,5 +1,7 @@
 package ro.euvt.tp.classroomDistancing.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -14,10 +16,13 @@ public class Classroom implements Serializable {
   private String location;
   private int capacity;
   @OneToOne
+  @Nullable
   private User teacher;
   @OneToMany
+  @Nullable
   private List<User> students;
-  @OneToOne
+  @ManyToOne
+  @Nullable
   private Subject subject;
 
   public Classroom(){
