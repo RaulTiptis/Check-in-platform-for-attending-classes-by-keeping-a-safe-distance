@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ro.euvt.tp.classroomDistancing.model.Classroom;
 import ro.euvt.tp.classroomDistancing.service.ClassroomService;
+import ro.euvt.tp.classroomDistancing.service.SubjectService;
+import ro.euvt.tp.classroomDistancing.service.UserService;
 
 import java.util.List;
 
@@ -14,9 +16,13 @@ import java.util.List;
 public class ClassroomController {
 
   private final ClassroomService classroomService;
+  private final SubjectService subjectService;
+  private final UserService userService;
 
-  public ClassroomController(ClassroomService classroomService){
+  public ClassroomController(ClassroomService classroomService, SubjectService subjectService, UserService userService){
     this.classroomService = classroomService;
+    this.subjectService = subjectService;
+    this.userService = userService;
   }
 
   @GetMapping("/all")
@@ -33,6 +39,18 @@ public class ClassroomController {
 
   @PostMapping("/add")
   public ResponseEntity<Classroom> addClassroom(@RequestBody Classroom classroom){
+    Classroom newClassroom = classroomService.addClassroom(classroom);
+    return new ResponseEntity<>(newClassroom, HttpStatus.CREATED);
+  }
+
+  @PostMapping("/addd")
+  public ResponseEntity<Classroom> adddClassroom(@RequestBody List<String> list){
+    Classroom classroom = new Classroom();
+    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
+    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
+    classroom.setName(list.get(0));
+    classroom.setLocation(list.get(1));
+    classroom.setCapacity(Integer.parseInt(list.get(2)));
     Classroom newClassroom = classroomService.addClassroom(classroom);
     return new ResponseEntity<>(newClassroom, HttpStatus.CREATED);
   }
