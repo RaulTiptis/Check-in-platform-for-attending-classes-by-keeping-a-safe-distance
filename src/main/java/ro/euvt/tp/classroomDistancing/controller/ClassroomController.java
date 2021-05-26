@@ -56,7 +56,14 @@ public class ClassroomController {
   }
 
   @PutMapping("/update")
-  public ResponseEntity<Classroom> updateClassroom(@RequestBody Classroom classroom){
+  public ResponseEntity<Classroom> updateClassroom(@RequestBody List<String> list){
+    Classroom classroom = new Classroom();
+    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
+    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
+    classroom.setId(Integer.parseInt(list.get(5)));
+    classroom.setName(list.get(0));
+    classroom.setLocation(list.get(1));
+    classroom.setCapacity(Integer.parseInt(list.get(2)));
     Classroom updateClassroom = classroomService.updateClassroom(classroom);
     return new ResponseEntity<>(updateClassroom, HttpStatus.OK);
   }
