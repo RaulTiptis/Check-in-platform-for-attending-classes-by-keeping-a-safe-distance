@@ -38,19 +38,16 @@ public class ClassroomController {
   }
 
   @PostMapping("/add")
-  public ResponseEntity<Classroom> addClassroom(@RequestBody Classroom classroom){
-    Classroom newClassroom = classroomService.addClassroom(classroom);
-    return new ResponseEntity<>(newClassroom, HttpStatus.CREATED);
-  }
-
-  @PostMapping("/addd")
-  public ResponseEntity<Classroom> adddClassroom(@RequestBody List<String> list){
+  public ResponseEntity<Classroom> addClassroom(@RequestBody List<String> list){
     Classroom classroom = new Classroom();
-    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
-    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
     classroom.setName(list.get(0));
     classroom.setLocation(list.get(1));
     classroom.setCapacity(Integer.parseInt(list.get(2)));
+    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
+    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
+    classroom.setDay(list.get(5));
+    classroom.setHour(list.get(6));
+    classroom.setMonth(list.get(7));
     Classroom newClassroom = classroomService.addClassroom(classroom);
     return new ResponseEntity<>(newClassroom, HttpStatus.CREATED);
   }
@@ -58,12 +55,31 @@ public class ClassroomController {
   @PutMapping("/update")
   public ResponseEntity<Classroom> updateClassroom(@RequestBody List<String> list){
     Classroom classroom = new Classroom();
-    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
-    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
-    classroom.setId(Integer.parseInt(list.get(5)));
     classroom.setName(list.get(0));
     classroom.setLocation(list.get(1));
     classroom.setCapacity(Integer.parseInt(list.get(2)));
+    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
+    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
+    classroom.setId(Integer.parseInt(list.get(5)));
+    classroom.setDay(list.get(6));
+    classroom.setHour(list.get(7));
+    classroom.setMonth(list.get(8));
+    Classroom updateClassroom = classroomService.updateClassroom(classroom);
+    return new ResponseEntity<>(updateClassroom, HttpStatus.OK);
+  }
+
+  @PutMapping("/register")
+  public ResponseEntity<Classroom> registerClassroom(@RequestBody List<String> list){
+    Classroom classroom = new Classroom();
+    classroom.setName(list.get(0));
+    classroom.setLocation(list.get(1));
+    classroom.setCapacity(Integer.parseInt(list.get(2)) - 1);
+    classroom.setTeacher(userService.findUserById(Integer.parseInt(list.get(3))));
+    classroom.setSubject(subjectService.findSubjectById(Integer.parseInt(list.get(4))));
+    classroom.setId(Integer.parseInt(list.get(5)));
+    classroom.setDay(list.get(6));
+    classroom.setHour(list.get(7));
+    classroom.setMonth(list.get(8));
     Classroom updateClassroom = classroomService.updateClassroom(classroom);
     return new ResponseEntity<>(updateClassroom, HttpStatus.OK);
   }

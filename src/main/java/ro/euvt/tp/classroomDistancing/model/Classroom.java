@@ -15,6 +15,9 @@ public class Classroom implements Serializable {
   private String name;
   private String location;
   private int capacity;
+  private String day;
+  private String hour;
+  private String month;
   @OneToOne
   @Nullable
   private User teacher;
@@ -29,7 +32,7 @@ public class Classroom implements Serializable {
 
   }
 
-  public Classroom(Integer id,String name, String location, int capacity, User teacher, List<User> students, Subject subject) {
+  public Classroom(Integer id,String name, String location, int capacity, User teacher, List<User> students, Subject subject, String day, String hour, String month) {
     this.id = id;
     this.name = name;
     this.location = location;
@@ -37,6 +40,9 @@ public class Classroom implements Serializable {
     this.subject = subject;
     this.teacher = teacher;
     this.students = students;
+    this.day = day;
+    this.hour = hour;
+    this.month = month;
   }
 
   public User getTeacher(){
@@ -93,5 +99,27 @@ public class Classroom implements Serializable {
 
   public void setSubject(Subject subject){
     this.subject = subject;
+  }
+
+  public String getDay(){return day;}
+
+  public void setDay(String day) {
+    this.day = day;
+  }
+
+  public String getHour(){
+    return hour;
+  }
+
+  public void setHour(String hour){
+    this.hour = hour;
+  }
+
+  public String getMonth(){
+    return month;
+  }
+
+  public void setMonth(String month){
+    this.month = month;
   }
 }
